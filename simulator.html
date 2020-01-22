@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SCREEN SHAPE SIMULATOR</title>
+<meta name="description" content="Test responsiveness of your web site
+using the screen shape simulator">
+<meta name="author" content="Tanja Krunic"></meta>
+<style>
+body {
+  display: table;
+  height: auto;
+  padding: 100px 0;
+  color: #000;
+  background: linear-gradient(90deg, rgba(238,177,234,1) 35%, rgba(218,13,232,1) 100%);
+}
+.container {
+  color: black;
+  text-shadow: -1px 1px 5px #b1a6a6;
+  font-weight: bold;
+}
+h1,
+h2 {
+  text-align: center;
+  width: 100%;
+  float: left;
+}
+
+div.content div.wrap {
+  width: 100%;
+  //float: left;
+}
+div.content div.wrap:nth-child(1) div:nth-child(1) {
+  margin-left: calc(50% - 120px);
+}
+div.content div.wrap:nth-child(3) {
+  width: 100%;
+  background: silver;
+  margin-top: 30px;
+}
+div.content div.wrap:nth-child(3) div input {
+  width: 50%;
+  margin-left: 25%;
+}
+div.content div.wrap div {
+  width: 100px;
+  float: left;
+}
+div.content div.wrap div input {
+  width: calc(100% - 30px);
+}
+div.content div.wrap div:nth-child(2) {
+  width: 40px;
+  float: left;
+  text-align: center;
+}
+div.content div:nth-child(3) div {
+  width: 100%;
+}
+div.content div:nth-child(3) div input {
+  width: 50%;
+  margin-left: 25%;
+}
+iframe{margin:auto;
+display:block;}
+
+.dim{margin:25px auto;
+text-align:center;}
+
+.in{display:inline;
+ margin:10px;
+ font-weigth:bold;
+ font-size:1.3em;}
+
+#shape{margin-bottom:20px;}
+}
+body{margin:auto;
+background: rgb(238,177,234);
+
+}
+iframe{
+border:none;
+overflow:hidden;}
+
+#url{
+margin:auto;
+width:300px;
+display:inline;
+border-radius:5px;
+background:beige;
+}
+#btn{
+display:inline;
+background:beige;
+padding:7px;
+font-weight:bold;
+border-radius:5px;}
+label{
+font-weight:bold;}
+
+ 
+
+</style>
+</head>
+<body>
+<h1>THE ONLINE RESPONSIVE CHECK TOOL</h1>
+<h2>Simulate various screen shapes</h2>
+<p>Use this application to check the layout
+ of your page on various screens. Check the desired screen shapes
+ and copy and the the appropriate URL address of your web page into
+ the input field. In order to check some changes of your style, 
+ you are encouraged to use the Inspect element tool. </p>
+<div>
+<p id="square1">Square<input type="checkbox" id="square" onClick="cShape('square','sq')"></p>
+<p id="round1">Round<input type="checkbox" id="round" onClick="cShape('round','rnd')"></p>
+<p id="triangle1">Triangle<input type="checkbox" id="triangle" onClick="cShape('triangle','tr')"></p>
+<p id="hexagon1">Hexagon<input type="checkbox" id="hexagon" onClick="cShape('hexagon','hex')"></p>
+<p id="octagon1">Octagon<input type="checkbox" id="octagon" onClick="cShape('octagon','oct')"></p>
+<p id="rhombus1">Rhombus<input type="checkbox" id="rhombus" onClick="cShape('rhombus','rh')"></p>
+</div>
+<div id="simulator"></div>
+
+<script>
+
+function sajt()
+{
+
+var adresa=document.getElementById("url").value;
+
+var okviri=document.getElementsByTagName("iframe");
+var n=okviri.length;
+for(i=0;i<n;i++)
+{
+okviri[i].src=adresa;
+}
+
+return;
+}
+
+
+function fun_w(si,z){
+z.style.width=si.value+"px";
+return;
+}
+
+function fun_h(vi,z){
+z.style.height=vi.value+"px";
+return;
+}
+
+function cShape(y,z)
+{
+var fr=document.getElementById("f");
+var x=document.getElementById(y);
+if(x.checked==true)
+{
+var dodaj=document.createElement("iframe");
+dodaj.setAttribute("src","test.html");
+dodaj.setAttribute('id', z);
+dodaj.setAttribute("scrolling", "yes");
+
+  switch(y) {
+  case "round":
+   {dodaj.style.borderRadius="100%";
+   dodaj.style.overflow="scroll";
+   dodaj.style.border="none";}
+   break;
+  case "triangle":
+    dodaj.style.clipPath="polygon(50% 0%, 0% 100%, 100% 100%)";
+ break;
+ case "hexagon":
+    dodaj.style.clipPath="polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
+ break;
+ case "octagon":
+    dodaj.style.clipPath=" polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)";
+ break;
+ case "rhombus":
+    dodaj.style.clipPath=" polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)";
+ break;
+ default:
+    
+} 
+
+var m=document.getElementById("simulator");
+m.appendChild(dodaj);
+var si="w"+y;
+var vi="h"+y;
+var kod="<div class='in'><label>W</label><input id='"+si+"' value='300' type='number' onChange='fun_w("+si+","+z+")'/></div>"+
+		"<div class='in'><label>x</label></div><div class='in'><label>H</label><input id='"+vi+"' value='300' type='number' onChange='fun_h("+vi+","+z+")'/></div>"
+var izbor=document.createElement("div");
+    izbor.innerHTML=kod;
+ 	izbor.setAttribute("class","dim");	
+	izbor.setAttribute('id', (z+0));
+ 	(document.getElementById("simulator")).appendChild(izbor);
+	
+
+	var _data={
+	"w":document.getElementById("w"+y),
+	"h":document.getElementById("h"+y),
+	"src":document.querySelectorAll("iframe"),
+	"url":document.getElementById("url")
+}
+		}
+else
+{
+var obrisi=document.getElementById(z);
+obrisi.remove();
+var obrisi1=document.getElementById(z+0);
+obrisi1.remove();
+}
+
+
+return;
+}
+
+
+
+
+</script>
+
+<div class="content">
+	
+	<div class="wrap">
+		<div >
+			<label>URL</label>
+			<input  id="url" oninput="sajt()" type="text" size="120" placeholder="https://myWebPage.html" value="test.html" style="padding:10px;margin-top:10px;margin-bottom:10px;" /><input type ="button" value="Go" onclick="sajt()" id="btn"></input>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>
+
+<!--  https://github.com/screenShapeSimulator/responsiveTester.git -->
