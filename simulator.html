@@ -156,15 +156,13 @@ var x=document.getElementById(y);
 if(x.checked==true)
 {
 var dodaj=document.createElement("iframe");
-dodaj.setAttribute("src","/test.html");
+dodaj.setAttribute("src","https://htmlpreview.github.io/?https://github.com/screenShapeSimulator/responsiveTester/blob/master/test.html");
 dodaj.setAttribute('id', z);
 dodaj.setAttribute("scrolling", "yes");
 
   switch(y) {
   case "round":
-   {dodaj.style.borderRadius="100%";
-   dodaj.style.overflow="scroll";
-   dodaj.style.border="none";}
+   dodaj.style.borderRadius="100%";
    break;
   case "triangle":
     dodaj.style.clipPath="polygon(50% 0%, 0% 100%, 100% 100%)";
@@ -195,12 +193,6 @@ var izbor=document.createElement("div");
  	(document.getElementById("simulator")).appendChild(izbor);
 	
 
-	var _data={
-	"w":document.getElementById("w"+y),
-	"h":document.getElementById("h"+y),
-	"src":document.querySelectorAll("iframe"),
-	"url":document.getElementById("url")
-}
 		}
 else
 {
